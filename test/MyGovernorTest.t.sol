@@ -62,13 +62,21 @@ contract MyGovernorTest is Test {
     function testGovernanceUpdatesBox() public {
         uint256 valueToStore = 888;
         string memory description = "store 888 in the box";
-        bytes memory encodedFunctionCall = abi.encodeWithSignature("store(uint256)", valueToStore);
+        bytes memory encodedFunctionCall = abi.encodeWithSignature(
+            "store(uint256)",
+            valueToStore
+        );
         values.push(0); // 0 means no value to send
         calldatas.push(encodedFunctionCall);
         targets.push(address(box));
 
         // 1. Propose to the DAO
-        uint256 proposalId = governor.propose(targets, values, calldatas, description);
+        uint256 proposalId = governor.propose(
+            targets,
+            values,
+            calldatas,
+            description
+        );
 
         // View the state
         console.log("Proposal state: ", uint256(governor.state(proposalId)));
